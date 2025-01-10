@@ -30,7 +30,6 @@ app.use(
   }),
 );
 
-
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
@@ -57,6 +56,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/catalog", catalogRouter); // Add catalog routes to middleware chain.
+
+// reconnect MongoDB cluster by relogging into Atlas account
+const port = 5000;
+app.listen(port, () => console.log(`Server running on ${port}, http://localhost:${port}`));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
